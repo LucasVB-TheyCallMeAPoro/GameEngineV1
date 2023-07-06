@@ -95,12 +95,20 @@ void Engine::Debug()
 
 void Engine::Loop()
 {
-	while (true) {
+	SDL_Event e;
+	bool quit = false;
+
+	while (!quit) {
+		SDL_PollEvent(&e);
 #if DEBUG
 		Debug();
 #endif
 		Update();
 		Draw();
 		LateUpdate();
+		if (e.type == SDL_QUIT)
+		{
+			quit = true;
+		}
 	}
 }
